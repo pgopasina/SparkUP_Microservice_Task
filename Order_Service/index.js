@@ -1,7 +1,7 @@
 const express = require("express");
 const orderRoutes = require("./Routes/orderRoutes");
 const cors = require("cors");
-require("./Connection/DBConnection");
+require("./connection/DBConnection");
 
 const app = express();
 app.use(express.json());

@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   order-service:
     build: ./Order_Service
@@ -20,3 +18,15 @@ services:
       - "5001:5001"
     depends_on:
       - order-service
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
