@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   order-service:
-    build: ./SparkUP_OrderService
+    build: ./Order_Service
     container_name: order-service
     restart: always
     ports:
@@ -13,7 +13,7 @@ services:
       MONGO_URI: "mongodb+srv://prudhvigopasina1999:gPrudhvi7Raj@paymentorderservice.awlddpg.mongodb.net/?retryWrites=true&w=majority&appName=paymentOrderService"
 
   payment-service:
-    build: ./SparkUP_PaymentService
+    build: ./Payment_Service
     container_name: payment-service
     restart: always
     ports:
