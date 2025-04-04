@@ -27,7 +27,7 @@ let createOrder = async (req, res) => {
 
         // Call Payment Service
         try {
-            await axios.post("http://localhost:5001/payment/pay", {
+            await axios.post("http://payment-service:5001/payment/pay", {
                 orderId: order._id,
                 amount,
             });
