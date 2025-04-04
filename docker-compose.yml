@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  order-service:
+    build: ./SparkUP_OrderService
+    container_name: order-service
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URI: "mongodb+srv://prudhvigopasina1999:gPrudhvi7Raj@paymentorderservice.awlddpg.mongodb.net/?retryWrites=true&w=majority&appName=paymentOrderService"
+
+  payment-service:
+    build: ./SparkUP_PaymentService
+    container_name: payment-service
+    restart: always
+    ports:
+      - "5001:5001"
+    depends_on:
+      - order-service
