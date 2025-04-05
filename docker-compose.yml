@@ -21,6 +21,7 @@ services:
     ports:
       - "5001:5001"
     depends_on:
+      - order-service
       - rabbitmq
     environment:
       MONGO_URI: "mongodb+srv://prudhvigopasina1999:gPrudhvi7Raj@paymentorderservice.awlddpg.mongodb.net/?retryWrites=true&w=majority&appName=paymentOrderService"
@@ -29,10 +30,10 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
-    restart: always
     ports:
-      - "5672:5672" # For services (AMQP)
-      - "15672:15672" # For RabbitMQ web UI
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
 
   mongo:
     image: mongo:latest
