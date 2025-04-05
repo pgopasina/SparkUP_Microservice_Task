@@ -11,7 +11,7 @@ let payment = async (req, res) => {
         console.log(`Processing payment for Order ${orderId} - $${amount}`);
 
         // Update order status in Order Service
-        await axios.patch(`http://order-service:5000/order/update/${orderId}`, {
+        await axios.patch(`http://localhost:5000/order/update/${orderId}`, {
             status: "Paid",
         });
 

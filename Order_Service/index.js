@@ -2,6 +2,8 @@ const express = require("express");
 const orderRoutes = require("./Routes/orderRoutes");
 const cors = require("cors");
 require("./connection/DBConnection");
+const { connectRabbitMQ } = require('./service/rabbitmqService');
+connectRabbitMQ();
 
 const app = express();
 app.use(express.json());

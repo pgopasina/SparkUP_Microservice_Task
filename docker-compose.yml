@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   order-service:
     build: ./Order_Service
@@ -7,8 +9,10 @@ services:
       - "5000:5000"
     depends_on:
       - mongo
+      - rabbitmq
     environment:
       MONGO_URI: "mongodb+srv://prudhvigopasina1999:gPrudhvi7Raj@paymentorderservice.awlddpg.mongodb.net/?retryWrites=true&w=majority&appName=paymentOrderService"
+      RABBITMQ_URL: "amqp://rabbitmq"
 
   payment-service:
     build: ./Payment_Service
@@ -17,7 +21,18 @@ services:
     ports:
       - "5001:5001"
     depends_on:
-      - order-service
+      - rabbitmq
+    environment:
+      MONGO_URI: "mongodb+srv://prudhvigopasina1999:gPrudhvi7Raj@paymentorderservice.awlddpg.mongodb.net/?retryWrites=true&w=majority&appName=paymentOrderService"
+      RABBITMQ_URL: "amqp://guest:guest@rabbitmq:5672/"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672" # For services (AMQP)
+      - "15672:15672" # For RabbitMQ web UI
 
   mongo:
     image: mongo:latest

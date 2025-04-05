@@ -1,5 +1,8 @@
 const express = require("express");
 const paymentRoutes = require("./Routes/paymentRoutes");
+const { consumeOrderQueue } = require('./service/rabbitmqService');
+consumeOrderQueue();
+
 const cors = require("cors");
 
 const app = express();

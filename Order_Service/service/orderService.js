@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/orderModel");
 const axios = require("axios");
+const { publishOrder } = require('../service/rabbitmqService');
 
 // Get all orders
 let getAllOrder = async (req, res) => {
@@ -27,10 +28,12 @@ let createOrder = async (req, res) => {
 
         // Call Payment Service
         try {
-            await axios.post("http://payment-service:5001/payment/pay", {
-                orderId: order._id,
-                amount,
-            });
+            // await axios.post("http://payment-service:5001/payment/pay", {
+            //     orderId: order._id,
+            //     amount,
+            // });
+            await publishOrder(order);
+
         } catch (paymentError) {
             console.error("Payment Service Error:", paymentError.message);
             return res.status(500).json({ message: "Order created, but payment failed", order });
@@ -45,8 +48,8 @@ let createOrder = async (req, res) => {
 // Update order status
 let updateOrder = async (req, res) => {
     try {
-        const {orderId} = req.params;
-        const {status} = req.body;
+        const { orderId } = req.params;
+        const { status } = req.body;
 
         const order = await Order.findById(orderId);
         if (!order) {
